@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Business.Concrete
 {
 	public class CarManager : ICarService
@@ -25,7 +26,29 @@ namespace Business.Concrete
 
 		public void Add(Car car)
 		{
-			_carDal.Add(car);
+			
+			if (car.Description.Length>2 && car.DailyPrice>0)
+			{
+				Console.WriteLine("Araba eklendi....Algoritmik");
+				_carDal.Add(car);
+			}
+			else
+			{
+				Console.WriteLine("Araba eklenemedi. Araba ismi minimum 2 karakter olmalıdır ve Araba günlük fiyatı 0'dan büyük olmalıdır.");
+			}
+			
+			
+
+
+		}
+		public List<Car> GetCarsByBrandId(int brandId)
+		{
+			return _carDal.GetAll(p => p.BrandId == brandId);
+		}
+
+		public List<Car> GetCarsByColorId(int colorId)
+		{
+			return _carDal.GetAll(p => p.ColorId == colorId);
 		}
 	}
 }

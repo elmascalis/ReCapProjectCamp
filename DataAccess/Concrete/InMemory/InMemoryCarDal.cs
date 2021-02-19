@@ -7,14 +7,14 @@ using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-	public class InMemoryCarDal : ICarDal
+	public class InMemoryCarDal
 	{
 		List<Car> _cars;
 		//ctor constructor oluşturulması. bellekte referans aldıgı zaman çalışacak blok.
 		public InMemoryCarDal()
-		{	
+		{
 			//oracle,sql,Mongo
-			_cars = new List<Car> 
+			_cars = new List<Car>
 			{
 				new Car{Id=1,BrandId=2,ColorId=3,DailyPrice=4,ModelYear="2021",Description="6" },
 				new Car{Id=2,BrandId=3,ColorId=3,DailyPrice=40,ModelYear="2011",Description="6" },
@@ -30,8 +30,8 @@ namespace DataAccess.Concrete.InMemory
 
 		public void Delete(Car car)
 		{
-	
-			Car carsToDelete = _cars.SingleOrDefault(p=>p.Id==car.Id);
+
+			Car carsToDelete = _cars.SingleOrDefault(p => p.Id == car.Id);
 			_cars.Remove(carsToDelete);
 		}
 
@@ -42,7 +42,7 @@ namespace DataAccess.Concrete.InMemory
 
 		public List<Car> GetById(int Id)
 		{
-			return	_cars.Where(p => p.Id == Id).ToList();
+			return _cars.Where(p => p.Id == Id).ToList();
 		}
 
 		public void Update(Car car)
