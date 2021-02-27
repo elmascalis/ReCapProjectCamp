@@ -10,8 +10,9 @@ namespace Business.Concrete
 {
 	public class CarManager : ICarService
 	{
+		//Constractor Injection yaptım.Entity framework nhibernat olur o sebeple..
 		ICarDal _carDal;
-
+        //ben kategori car manager olarak veri erişim katmamına baglıyım interfaace referans üzerinden bağımlıyım.
 		public CarManager(ICarDal carDal)
 		{
 			_carDal = carDal;
@@ -26,8 +27,7 @@ namespace Business.Concrete
 
 		public void Add(Car car)
 		{
-			
-			if (car.Description.Length>2 && car.DailyPrice>0)
+			if (car.Description.Length > 2 && car.DailyPrice > 0)
 			{
 				Console.WriteLine("Araba eklendi....Algoritmik");
 				_carDal.Add(car);
@@ -36,19 +36,35 @@ namespace Business.Concrete
 			{
 				Console.WriteLine("Araba eklenemedi. Araba ismi minimum 2 karakter olmalıdır ve Araba günlük fiyatı 0'dan büyük olmalıdır.");
 			}
-			
-			
-
-
 		}
-		public List<Car> GetCarsByBrandId(int brandId)
+		public void Update(Car car)
 		{
-			return _carDal.GetAll(p => p.BrandId == brandId);
+			throw new NotImplementedException();
 		}
 
-		public List<Car> GetCarsByColorId(int colorId)
+		public void Delete(Car car)
 		{
-			return _carDal.GetAll(p => p.ColorId == colorId);
+			throw new NotImplementedException();
+		}
+
+		//public List<CarDetailDto> GetCarDetails()
+		//{
+		//	throw new NotImplementedException();
+		//}
+
+		public Car GetCarsByBrandId(int Id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Car GetCarsByColorId(int colorId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Car GetById(int carId)
+		{
+			return _carDal.Get(c=>c.Id==carId);
 		}
 	}
 }

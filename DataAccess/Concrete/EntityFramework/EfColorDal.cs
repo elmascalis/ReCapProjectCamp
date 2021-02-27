@@ -1,37 +1,31 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Linq;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-	public class EfColorDal : IColorDal
+	public class EfColorDal : EfEntityRepositoryBase<Color, NorthwindContext>, IColorDal
 	{
-		public void Add(Color entity)
+		public List<ColorDetailDto> GetColorDetails()
 		{
-			throw new NotImplementedException();
-		}
-
-		public void Delete(Color entity)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Color Get(Expression<Func<Color, bool>> filter)
-		{
-			throw new NotImplementedException();
-		}
-
-		public List<Color> GetAll(Expression<Func<Color, bool>> filter = null)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void Update(Color entity)
-		{
-			throw new NotImplementedException();
+			using (NorthwindContext northwindContext = new NorthwindContext())
+			{
+				var result = from co in northwindContext.Colors
+							 join c in northwindContext.Cars
+							 on co.Id equals c.ColorId
+							 select new ColorDetailDto
+							 {
+								ColorId=c.ColorId,Description=c.Description,
+							 };
+				return result.ToList();
+			}
+		
 		}
 	}
 }
